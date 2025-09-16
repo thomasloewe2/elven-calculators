@@ -58,84 +58,65 @@
         <div class="elven-calc-card" role="group" aria-label="EV Calculator">
           <div class="elven-calc-grid">
             
-            <div class="elven-calc-field elven-calc-col-full">
-              <span>Calculate consumption via:</span>
-              <div class="elven-calc-mode-switch" role="radiogroup" aria-label="Calculation Type">
-                <label>
-                  <input type="radio" name="mode-${this.root.id}" value="range" checked>
-                  <span>Range & Battery</span>
-                </label>
-                <label>
-                  <input type="radio" name="mode-${this.root.id}" value="usage">
-                  <span>Usage (Wh/km)</span>
-                </label>
-              </div>
-            </div>
-
-            <label class="elven-calc-field elven-field-range">
-              <span>EV Range (km)</span>
-              <input type="text" inputmode="decimal" class="elven-range" placeholder="e.g. 450" aria-label="EV Range (km)">
-            </label>
-
-            <label class="elven-calc-field elven-field-range">
-              <span>Battery Capacity (kWh)</span>
-              <input type="text" inputmode="decimal" class="elven-battery" placeholder="e.g. 77" aria-label="Battery Capacity (kWh)">
-            </label>
-
-            <label class="elven-calc-field elven-field-usage elven-hidden">
-              <span>Usage (Wh/km)</span>
-              <input type="text" inputmode="decimal" class="elven-wh-km" placeholder="e.g. 170" aria-label="Usage (Wh/km)">
+            <label class="elven-calc-field">
+              <span>Rækkevidde (km)</span>
+              <input type="text" inputmode="decimal" class="elven-range" placeholder="fx 450" aria-label="EV Range (km)">
             </label>
 
             <label class="elven-calc-field">
-              <span>Annual Driving (km)</span>
-              <input type="text" inputmode="decimal" class="elven-driving" placeholder="e.g. 20000" aria-label="Annual Driving (km)">
+              <span>Batterikapacitet (kWh)</span>
+              <input type="text" inputmode="decimal" class="elven-battery" placeholder="fx 77" aria-label="Battery Capacity (kWh)">
             </label>
 
             <label class="elven-calc-field">
-              <span>Electricity Price (kr./kWh)</span>
-              <input type="text" inputmode="decimal" class="elven-price" placeholder="e.g. 2,50" aria-label="Electricity Price (kr./kWh)">
+              <span>Årligt kørselsbehov (km)</span>
+              <input type="text" inputmode="decimal" class="elven-driving" placeholder="fx 20000" aria-label="Årligt kørselsbehov (km)">
+            </label>
+
+            <label class="elven-calc-field">
+              <span>Elpris (kr./kWh)</span>
+              <input type="text" inputmode="decimal" class="elven-price" placeholder="fx 2,50" aria-label="Elpris (kr./kWh)">
             </label>
           </div>
 
           <div class="elven-calc-results">
-            <p>Result (EV)</p>
-            <div class="elven-calc-table" role="table" aria-label="Results EV">
+            <p>Resultat</p>
+            <div class="elven-calc-table" role="table" aria-label="Resultat">
               <div class="elven-calc-row" role="row">
-                <div role="cell">Usage</div>
-                <div role="cell"><span class="r-kwh-km">-</span> kWh per km</div>
+                <div role="cell">Forbrug</div>
+                <div role="cell"><span class="r-kwh-km">-</span> kWh/km</div>
               </div>
               <div class="elven-calc-row" role="row">
-                <div role="cell">Annual Usage</div>
+                <div role="cell">Årligt forbrug</div>
                 <div role="cell"><span class="r-annual-kwh">-</span> kWh</div>
               </div>
               <div class="elven-calc-row" role="row">
-                <div role="cell"><strong>Annual Cost (EV)</strong></div>
+                <div role="cell"><strong>Årlige omkostninger</strong></div>
                 <div role="cell"><strong><span class="r-annual-cost-ev">-</span> kr.</strong></div>
               </div>
             </div>
           </div>
 
           <div class="elven-calc-comparison">
-            <p>Optional: Compare with Fuel Car</p>
+            <p>Sammenlign med brændstofbil</p>
             <div class="elven-calc-grid">
               <label class="elven-calc-field">
-                <span>Fuel Car (km/l)</span>
-                <input type="text" inputmode="decimal" class="elven-fuel-kmpl" placeholder="e.g. 15" aria-label="Fuel Car (km/l)">
+                <span>Brændstofbil (km/l)</span>
+                <input type="text" inputmode="decimal" class="elven-fuel-kmpl" placeholder="fx 15" aria-label="Brændstofbil (km/l)">
               </label>
               <label class="elven-calc-field">
-                <span>Fuel Price (kr./l)</span>
-                <input type="text" inputmode="decimal" class="elven-fuel-price" placeholder="e.g. 14,50" aria-label="Fuel Price (kr./l)">
+                <span>Brændstofpris (kr./liter)</span>
+                <input type="text" inputmode="decimal" class="elven-fuel-price" placeholder="fx 13,00" aria-label="Brændstofpris (kr./liter)">
               </label>
             </div>
             <div class="elven-calc-results" style="margin-top:12px;">
-              <div class="elven-calc-table" role="table" aria-label="Results Comparison">
+              <div class="elven-calc-table" role="table" aria-label="Sammenligning">
                 <div class="elven-calc-row" role="row">
-                  <div role="cell"><strong>Annual Cost (Fuel)</strong></div>
+                  <div role="cell"><strong>Årlige omkostninger (brændstof))</strong></div>
                   <div role="cell"><strong><span class="r-annual-cost-fuel">-</span> kr.</strong></div>
                 </div>
                 <div class="elven-calc-row" role="row">
-                  <div role="cell"><strong>Your Annual Savings</strong></div>
+                  <div role="cell"><strong>Årlig forskel</strong></div>
                   <div role="cell"><strong><span class="r-annual-saving">-</span> kr.</strong></div>
                 </div>
               </div>
@@ -148,13 +129,8 @@
       this.root.appendChild(wrapper);
 
       // Element refs
-      this.modeRadios  = wrapper.querySelectorAll('.elven-calc-mode-switch input[type="radio"]');
-      this.fRange    = wrapper.querySelectorAll('.elven-field-range');
-      this.fUsage    = wrapper.querySelector('.elven-field-usage');
-
       this.inRange       = wrapper.querySelector('.elven-range');
       this.inBattery     = wrapper.querySelector('.elven-battery');
-      this.inWhKm        = wrapper.querySelector('.elven-wh-km');
       this.inDriving     = wrapper.querySelector('.elven-driving');
       this.inPrice       = wrapper.querySelector('.elven-price');
       this.inFuelKmpl    = wrapper.querySelector('.elven-fuel-kmpl');
@@ -174,35 +150,29 @@
       if (defFuelPrice) this.inFuelPrice.value = defFuelPrice;
 
       // Set fallback defaults
-      if (!this.inPrice.value) this.inPrice.value = '2,50';
-      if (!this.inFuelPrice.value) this.inFuelPrice.value = '14,50';
-      this.inRange.value = '450';
-      this.inBattery.value = '77';
-      this.inDriving.value = '20000';
-      this.inFuelKmpl.value = '15';
-      this.inWhKm.value = '170';
+    //   if (!this.inPrice.value) this.inPrice.value = '2,50';
+      if (!this.inFuelPrice.value) this.inFuelPrice.value = '13,00';
+      
+      // Set EV defaults
+    //   this.inRange.value = '450';
+    //   this.inBattery.value = '77';
+    //   this.inDriving.value = '20000';
+      
+      // Set Fuel defaults
+      if (!this.inFuelKmpl.value) this.inFuelKmpl.value = '15';
     }
 
     bind(){
       const onInput = () => this.update();
-      this.modeRadios.forEach(radio => radio.addEventListener('change', onInput));
       
-      [this.inRange, this.inBattery, this.inWhKm, this.inDriving, this.inPrice, this.inFuelKmpl, this.inFuelPrice]
+      [this.inRange, this.inBattery, this.inDriving, this.inPrice, this.inFuelKmpl, this.inFuelPrice]
         .forEach(el => el.addEventListener('input', onInput));
     }
 
     update(){
-      const mode = this.root.querySelector('.elven-calc-mode-switch input:checked').value;
-      const isRangeMode = mode === 'range';
-
-      // Toggle field visibility
-      this.fRange.forEach(el => el.classList.toggle('elven-hidden', !isRangeMode));
-      this.fUsage.classList.toggle('elven-hidden', isRangeMode);
-      
       // --- Read input values ---
       const range   = parseLocaleNumber(this.inRange.value);
       const battery = parseLocaleNumber(this.inBattery.value);
-      const whKm    = parseLocaleNumber(this.inWhKm.value);
       const driving = parseLocaleNumber(this.inDriving.value);
       const price   = parseLocaleNumber(this.inPrice.value);
       
@@ -210,13 +180,7 @@
       const fuelPrice = parseLocaleNumber(this.inFuelPrice.value);
 
       // --- Calculate EV ---
-      let kwhPerKm = NaN;
-      if (isRangeMode) {
-        kwhPerKm = battery / range; // kWh per km
-      } else {
-        kwhPerKm = whKm / 1000; // Convert Wh/km to kWh/km
-      }
-
+      const kwhPerKm = battery / range; // kWh per km
       const annualKwh = kwhPerKm * driving;
       const annualEvCost = annualKwh * price;
 

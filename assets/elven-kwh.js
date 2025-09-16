@@ -43,7 +43,7 @@
     return e;
   }
 
-  // --- KWH Component ---
+  // --- Component ---
   class ElvenKwhCalc {
     constructor(root){
       this.root = root;
@@ -53,155 +53,198 @@
     }
 
     build(){
+      // Use shared 'elven-calc-wrap' class
       const wrapper = el('div', 'elven-calc-wrap');
+
       wrapper.innerHTML = `
-        <div class="elven-calc-card" role="group" aria-label="KWH Calculator">
+        <div class="elven-calc-card" role="group" aria-label="Elven kWh calculator">
           <div class="elven-calc-grid">
+            
             <div class="elven-calc-field elven-calc-col-full">
-              <span>Calculation Mode:</span>
-              <div class="elven-calc-mode-switch" role="radiogroup" aria-label="Calculation Mode">
+              <span>Beregn forbrug pr. gang eller pr. time?</span>
+              <div class="elven-calc-mode-switch" role="radiogroup" aria-label="Beregningstype">
                 <label>
-                  <input type="radio" name="mode-${this.root.id}" value="hour" checked>
-                  <span>Per Hour</span>
+                  <input type="radio" name="mode-${this.root.id}" value="per_use" checked>
+                  <span>Pr. gang</span>
                 </label>
                 <label>
-                  <input type="radio" name="mode-${this.root.id}" value="use">
-                  <span>Per Use</span>
+                  <input type="radio" name="mode-${this.root.id}" value="per_hour">
+                  <span>Pr. time</span>
                 </label>
               </div>
             </div>
 
-            <label class="elven-calc-field">
-              <span>Watt (W)</span>
-              <input type="text" inputmode="decimal" class="elven-watt" placeholder="e.g. 100" aria-label="Watt (W)">
-            </label>
-            <label class="elven-calc-field">
-              <span>Price (kr./kWh)</span>
-              <input type="text" inputmode="decimal" class="elven-price" placeholder="e.g. 2,50" aria-label="Price (kr./kWh)">
+            <label class="elven-calc-field elven-field-per-use elven-field-duration">
+              <span>Varighed pr. gang (minutter)</span>
+              <input type="text" inputmode="decimal" class="elven-duration-min" placeholder="fx 90" aria-label="Varighed pr. gang (minutter)">
             </label>
 
-            <label class="elven-calc-field elven-field-use elven-hidden">
-              <span>Minutes per use</span>
-              <input type="text" inputmode="decimal" class="elven-minutes" placeholder="e.g. 30" aria-label="Minutes per use">
+            <label class="elven-calc-field elven-field-per-use">
+              <span>Antal anvendelser pr. uge</span>
+              <input type="text" inputmode="decimal" class="elven-uses-per-week" placeholder="fx 5" aria-label="Anvendelser pr. uge">
             </label>
-            <label class="elven-calc-field elven-field-use elven-hidden">
-              <span>Times per week</span>
-              <input type="text" inputmode="decimal" class="elven-times" placeholder="e.g. 3" aria-label="Times per week">
+
+            <label class="elven-calc-field elven-field-per-hour">
+              <span>Antal timer pr. dag</span>
+              <input type="text" inputmode="decimal" class="elven-hours-per-day" placeholder="fx 2" aria-label="Timer pr. dag">
+            </label>
+
+            <label class="elven-calc-field elven-watt-label">
+              <span>Apparatets forbrug (kWh pr. gang)</span>
+              <input type="text" inputmode="decimal" class="elven-watt" placeholder="fx 0,75" aria-label="Forbrug i kWh pr. gang">
+            </label>
+            
+            <label class="elven-calc-field">
+              <span>Antal apparater</span>
+              <input type="text" inputmode="numeric" class="elven-devices" value="1" aria-label="Antal apparater">
+            </label>
+
+            <label class="elven-calc-field">
+              <span>Elpris (kr./kWh)</span>
+              <input type="text" inputmode="decimal" class="elven-price" placeholder="fx 2,50" aria-label="Elpris i kr./kWh">
             </label>
           </div>
-          
+
           <div class="elven-calc-results">
-            <p>Results</p>
-            <div class="elven-kwh-results-grid" role="table" aria-label="Results">
-              <div class="elven-calc-row elven-row-per-unit" role="row">
-                <div role="cell">Price per use</div>
-                <div role="cell"><strong><span class="r-per-unit">-</span> kr.</strong></div>
+            <p>Resultat</p>
+            <div class="elven-calc-table" role="table" aria-label="Resultater">
+              <div class="elven-calc-row" role="row">
+                <div role="cell">Pr. enhed (gang/time)</div>
+                <div role="cell"><span class="r-unit-kwh">-</span> kWh ⇔ <span class="r-unit-kr">-</span> kr.</div>
               </div>
               <div class="elven-calc-row" role="row">
-                <div role="cell">Price per day</div>
-                <div role="cell"><strong><span class="r-per-day">-</span> kr.</strong></div>
+                <div role="cell">Pr. dag</div>
+                <div role="cell"><span class="r-day-kwh">-</span> kWh ⇔ <span class="r-day-kr">-</span> kr.</div>
               </div>
               <div class="elven-calc-row" role="row">
-                <div role="cell">Price per week</div>
-                <div role="cell"><strong><span class="r-per-week">-</span> kr.</strong></div>
+                <div role="cell">Pr. uge</div>
+                <div role="cell"><span class="r-week-kwh">-</span> kWh ⇔ <span class="r-week-kr">-</span> kr.</div>
               </div>
               <div class="elven-calc-row" role="row">
-                <div role="cell">Price per month</div>
-                <div role="cell"><strong><span class="r-per-month">-</span> kr.</strong></div>
+                <div role="cell">Pr. måned</div>
+                <div role="cell"><span class="r-month-kwh">-</span> kWh ⇔ <span class="r-month-kr">-</span> kr.</div>
               </div>
               <div class="elven-calc-row" role="row">
-                <div role="cell">Price per year</div>
-                <div role="cell"><strong><span class="r-per-year">-</span> kr.</strong></div>
+                <div role="cell">Pr. år</div>
+                <div role="cell"><span class="r-year-kwh">-</span> kWh ⇔ <span class="r-year-kr">-</span> kr.</div>
               </div>
             </div>
           </div>
         </div>
       `;
-      
+
       this.root.appendChild(wrapper);
 
-      // Element refs
+      // Refs
       this.modeRadios  = wrapper.querySelectorAll('.elven-calc-mode-switch input[type="radio"]');
-      this.fUse        = wrapper.querySelectorAll('.elven-field-use');
-      this.rPerUnit    = wrapper.querySelector('.elven-row-per-unit');
+      this.fPerUse   = wrapper.querySelectorAll('.elven-field-per-use');
+      this.fPerHour  = wrapper.querySelector('.elven-field-per-hour');
+      this.fieldDuration = wrapper.querySelector('.elven-field-duration');
+      this.labelWatt = wrapper.querySelector('.elven-watt-label span');
 
-      this.inWatt      = wrapper.querySelector('.elven-watt');
-      this.inPrice     = wrapper.querySelector('.elven-price');
-      this.inMinutes   = wrapper.querySelector('.elven-minutes');
-      this.inTimes     = wrapper.querySelector('.elven-times');
-      
-      this.rUnit       = wrapper.querySelector('.r-per-unit');
-      this.rDay        = wrapper.querySelector('.r-per-day');
-      this.rWeek       = wrapper.querySelector('.r-per-week');
-      this.rMonth      = wrapper.querySelector('.r-per-month');
-      this.rYear       = wrapper.querySelector('.r-per-year');
-      
-      // Set defaults from data attributes
+      this.inDurationMin   = wrapper.querySelector('.elven-duration-min');
+      this.inUsesPerWeek   = wrapper.querySelector('.elven-uses-per-week');
+      this.inHoursPerDay  = wrapper.querySelector('.elven-hours-per-day');
+      this.inWatt          = wrapper.querySelector('.elven-watt');
+      this.inDevices       = wrapper.querySelector('.elven-devices');
+      this.inPrice         = wrapper.querySelector('.elven-price');
+
+      this.rUnitKwh  = wrapper.querySelector('.r-unit-kwh');
+      this.rUnitKr   = wrapper.querySelector('.r-unit-kr');
+      this.rDayKwh   = wrapper.querySelector('.r-day-kwh');
+      this.rDayKr    = wrapper.querySelector('.r-day-kr');
+      this.rWeekKwh  = wrapper.querySelector('.r-week-kwh');
+      this.rWeekKr   = wrapper.querySelector('.r-week-kr');
+      this.rMonthKwh = wrapper.querySelector('.r-month-kwh');
+      this.rMonthKr  = wrapper.querySelector('.r-month-kr');
+      this.rYearKwh  = wrapper.querySelector('.r-year-kwh');
+      this.rYearKr   = wrapper.querySelector('.r-year-kr');
+
+      // Defaults from data-attributes (if provided)
       const defPrice = this.root.getAttribute('data-default-price') || '';
-      const defWatt = this.root.getAttribute('data-default-watt') || '';
+      const defWatt  = this.root.getAttribute('data-default-watt') || '';
       if (defPrice) this.inPrice.value = defPrice;
-      if (defWatt) this.inWatt.value = defWatt;
-      
-      // Set fallback defaults
+      if (defWatt)  this.inWatt.value  = defWatt;
+
+      // Helpful initial values if nothing set
       if (!this.inPrice.value) this.inPrice.value = '2,50';
-      if (!this.inWatt.value) this.inWatt.value = '100';
-      this.inMinutes.value = '30';
-      this.inTimes.value = '3';
+      if (!this.inWatt.value)  this.inWatt.value  = '0,75';
+      this.inDurationMin.value = '90';
+      this.inUsesPerWeek.value = '5';
+      this.inHoursPerDay.value = '2';
     }
 
     bind(){
       const onInput = () => this.update();
       this.modeRadios.forEach(radio => radio.addEventListener('change', onInput));
       
-      [this.inWatt, this.inPrice, this.inMinutes, this.inTimes]
+      [this.inDurationMin, this.inUsesPerWeek, this.inHoursPerDay, this.inWatt, this.inDevices, this.inPrice]
         .forEach(el => el.addEventListener('input', onInput));
     }
 
     update(){
       const mode = this.root.querySelector('.elven-calc-mode-switch input:checked').value;
-      const isPerUseMode = mode === 'use';
+      const isPerUseMode = mode === 'per_use';
 
-      // Toggle field visibility
-      this.fUse.forEach(el => el.classList.toggle('elven-hidden', !isPerUseMode));
-      this.rPerUnit.classList.toggle('elven-hidden', !isPerUseMode);
+      // Toggle visibility
+      this.fPerUse.forEach(el => el.classList.toggle('elven-hidden', !isPerUseMode));
+      this.fPerHour.classList.toggle('elven-hidden', isPerUseMode);
       
-      // Read values
-      const watt   = parseLocaleNumber(this.inWatt.value);
-      const price  = parseLocaleNumber(this.inPrice.value);
-      
-      const kwh = watt / 1000;
-      const costPerHour = kwh * price;
-
-      let costPerDay, costPerWeek, costPerMonth, costPerYear, costPerUnit;
-
+      // Handle special visibility and labels
       if (isPerUseMode) {
-        // "Per Use" calculation
-        const minutes = parseLocaleNumber(this.inMinutes.value);
-        const times   = parseLocaleNumber(this.inTimes.value);
-        
-        costPerUnit = (minutes / 60) * costPerHour;
-        costPerWeek = costPerUnit * times;
-        costPerDay  = costPerWeek / 7;
+        this.fieldDuration.classList.add('elven-hidden'); // This was in your original file
+        this.labelWatt.textContent = 'Apparatets forbrug (kWh pr. gang)';
+        this.inWatt.setAttribute('aria-label', 'Forbrug i kWh pr. gang');
+        this.inWatt.placeholder = 'fx 0,75';
       } else {
-        // "Per Hour" calculation (as in, 24/7)
-        costPerDay  = costPerHour * 24;
-        costPerWeek = costPerDay * 7;
-        costPerUnit = NaN; // Not applicable
+        this.labelWatt.textContent = 'Apparatets effekt (Watt)';
+        this.inWatt.setAttribute('aria-label', 'Effekt i Watt');
+        this.inWatt.placeholder = 'fx 1000';
       }
-      
-      costPerMonth = costPerDay * (365.25 / 12);
-      costPerYear  = costPerDay * 365.25;
 
+      // Read inputs
+      const W       = parseLocaleNumber(this.inWatt.value); // Can be Watt or kWh
+      const devices = parseLocaleNumber(this.inDevices.value) || 1;
+      const price   = parseLocaleNumber(this.inPrice.value);
+
+      let unitKwh, totalWeekKwh;
+
+      if (isPerUseMode){
+        const usesW   = parseLocaleNumber(this.inUsesPerWeek.value);
+        unitKwh = W; // kWh for a single use of a single device
+        totalWeekKwh = unitKwh * usesW * devices;
+      } else { // mode === 'per_hour'
+        const hoursD = parseLocaleNumber(this.inHoursPerDay.value);
+        const watt = W;
+        unitKwh = watt / 1000; // kWh for one hour for a single device
+        totalWeekKwh = (watt * hoursD * 7 * devices) / 1000;
+      }
+
+      // --- Calculations based on total weekly consumption ---
+      const unitKr   = unitKwh * price;
+      const totalDayKwh   = totalWeekKwh / 7;
+      const totalDayKr    = totalDayKwh * price;
+      const totalWeekKr   = totalWeekKwh * price;
+      const totalMonthKwh = totalDayKwh * (365 / 12);
+      const totalMonthKr  = totalDayKr * (365 / 12);
+      const totalYearKwh  = totalDayKwh * 365;
+      const totalYearKr   = totalDayKr * 365;
+      
       // Display results
-      this.rUnit.textContent  = formatDK(costPerUnit, 2);
-      this.rDay.textContent   = formatDK(costPerDay, 2);
-      this.rWeek.textContent  = formatDK(costPerWeek, 2);
-      this.rMonth.textContent = formatDK(costPerMonth, 2);
-      this.rYear.textContent  = formatDK(costPerYear, 2);
+      this.rUnitKwh.textContent  = isFinite(unitKwh)  ? formatDK(unitKwh, 2) : '-';
+      this.rUnitKr.textContent   = isFinite(unitKr)   ? formatDK(unitKr, 2)  : '-';
+      this.rDayKwh.textContent   = isFinite(totalDayKwh)   ? formatDK(totalDayKwh, 2)  : '-';
+      this.rDayKr.textContent    = isFinite(totalDayKr)    ? formatDK(totalDayKr, 2)   : '-';
+      this.rWeekKwh.textContent  = isFinite(totalWeekKwh)  ? formatDK(totalWeekKwh, 2) : '-';
+      this.rWeekKr.textContent   = isFinite(totalWeekKr)   ? formatDK(totalWeekKr, 2)  : '-';
+      this.rMonthKwh.textContent = isFinite(totalMonthKwh) ? formatDK(totalMonthKwh, 2): '-';
+      this.rMonthKr.textContent  = isFinite(totalMonthKr)  ? formatDK(totalMonthKr, 2) : '-';
+      this.rYearKwh.textContent  = isFinite(totalYearKwh)  ? formatDK(totalYearKwh, 2) : '-';
+      this.rYearKr.textContent   = isFinite(totalYearKr)   ? formatDK(totalYearKr, 2)  : '-';
     }
   }
 
-  // Init
+  // Hydrate all instances
   document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('.elven-kwh-calculator').forEach(node => new ElvenKwhCalc(node));
   });

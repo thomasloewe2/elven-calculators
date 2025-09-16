@@ -2,6 +2,7 @@
 .elven-calc-wrap {
   margin: auto;
   color: #000000;
+  font-family: inherit; /* Ensures theme font is used */
 }
 .elven-calc-card {
   border: 5px solid #2562b6;
@@ -21,7 +22,7 @@
   gap: 6px;
 }
 .elven-calc-field span {
-  font-size: .95rem;
+  font-size: .95rem; /* Matches request */
   font-weight: bold;
   color: #000000;
 }
@@ -29,7 +30,8 @@
   padding: 10px 12px;
   border: 1px solid #cccccc;
   border-radius: 10px;
-  font-size: 1rem;
+  font-size: .95rem; /* CHANGED: Was 1rem, now matches */
+  font-family: inherit; /* ADDED: Ensures input uses theme font */
   background: #f9f9f9;
   color: #000000;
   outline: none;
@@ -45,6 +47,7 @@
 /* Results section */
 .elven-calc-results {
   margin-top: 16px;
+  font-size: .95rem; /* Ensures results text also matches */
 }
 .elven-calc-results p {
   margin: 0 0 8px 0;
@@ -106,7 +109,7 @@
   padding: 8px 10px;
   cursor: pointer;
   border-radius: 8px;
-  font-size: .95rem;
+  font-size: .95rem; /* Matches request */
   transition: background-color .2s ease, color .2s ease;
 }
 .elven-calc-mode-switch input:checked + span {
