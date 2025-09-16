@@ -1,8 +1,9 @@
 /* Universal wrapper */
 .elven-calc-wrap {
-  margin: auto;
+  margin: auto auto 30px auto;
   color: #000000;
-  font-family: inherit; /* Ensures theme font is used */
+  font-family: inherit;
+  font-size: .95rem;
 }
 .elven-calc-card {
   border: 5px solid #2562b6;
@@ -22,7 +23,6 @@
   gap: 6px;
 }
 .elven-calc-field span {
-  font-size: .95rem; /* Matches request */
   font-weight: bold;
   color: #000000;
 }
@@ -30,8 +30,6 @@
   padding: 10px 12px;
   border: 1px solid #cccccc;
   border-radius: 10px;
-  font-size: .95rem; /* CHANGED: Was 1rem, now matches */
-  font-family: inherit; /* ADDED: Ensures input uses theme font */
   background: #f9f9f9;
   color: #000000;
   outline: none;
@@ -47,7 +45,6 @@
 /* Results section */
 .elven-calc-results {
   margin-top: 16px;
-  font-size: .95rem; /* Ensures results text also matches */
 }
 .elven-calc-results p {
   margin: 0 0 8px 0;
@@ -69,6 +66,10 @@
 .elven-calc-row div:first-child {
   opacity: .8;
 }
+.elven-calc-row:last-child {
+  border-bottom: none;
+  padding: 10px 0 0 0;
+}
 /* Specific to KWH calc results */
 .elven-kwh-results-grid {
   display: grid;
@@ -78,11 +79,12 @@
 /* Specific to EV calc comparison */
 .elven-calc-comparison {
   margin-top: 20px;
-  border-top: 2px solid #2562b6;
-  padding-top: 16px;
+  border-top: 5px solid #2562b6;
+  padding-top: 10px;
 }
 .elven-calc-comparison p {
   color: #2562b6;
+  font-weight: bold;
 }
 /* Mode Switch (shared style) */
 .elven-calc-mode-switch {
@@ -109,7 +111,6 @@
   padding: 8px 10px;
   cursor: pointer;
   border-radius: 8px;
-  font-size: .95rem; /* Matches request */
   transition: background-color .2s ease, color .2s ease;
 }
 .elven-calc-mode-switch input:checked + span {

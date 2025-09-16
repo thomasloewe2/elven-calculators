@@ -112,7 +112,7 @@
             <div class="elven-calc-results" style="margin-top:12px;">
               <div class="elven-calc-table" role="table" aria-label="Sammenligning">
                 <div class="elven-calc-row" role="row">
-                  <div role="cell"><strong>Årlige omkostninger (brændstof))</strong></div>
+                  <div role="cell"><strong>Årlige omkostninger</strong></div>
                   <div role="cell"><strong><span class="r-annual-cost-fuel">-</span> kr.</strong></div>
                 </div>
                 <div class="elven-calc-row" role="row">
