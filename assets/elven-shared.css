@@ -34,7 +34,7 @@
   outline: none;
 }
 .elven-calc-field input:focus {
-  border-color: #2562b6!important;
+  border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(37, 98, 182, .15);
 }
 /* Full-width helper */
@@ -58,7 +58,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
   border-bottom: 1px solid #cccccc;
   padding: 10px 0;
 }
@@ -77,12 +76,12 @@
 }
 /* Specific to EV calc comparison */
 .elven-calc-comparison {
+  background-color: var(--base);
+  border-radius: 20px;
   margin-top: 20px;
-  border-top: 5px solid #2562b6;
   padding-top: 10px;
 }
 .elven-calc-comparison p {
-  color: #2562b6;
   font-weight: bold;
 }
 /* Mode Switch (shared style) */
