@@ -77,12 +77,12 @@
 /* Specific to EV calc comparison */
 .elven-calc-comparison {
   background-color: var(--base);
-  border-radius: 20px;
   margin-top: 20px;
-  padding-top: 10px;
+  padding: 20px;
 }
-.elven-calc-comparison p {
+.elven-calc-comparison-title {
   font-weight: bold;
+  margin-bottom: 2rem;
 }
 /* Mode Switch (shared style) */
 .elven-calc-mode-switch {

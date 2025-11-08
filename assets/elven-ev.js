@@ -98,10 +98,10 @@
           </div>
 
           <div class="elven-calc-comparison">
-            <p>Sammenlign med brændstofbil</p>
+            <p class="elven-calc-comparison-title">Sammenlign med brændstofbil</p>
             <div class="elven-calc-grid">
               <label class="elven-calc-field">
-                <span>Brændstofbil (km/l)</span>
+                <span>Kilometer/liter</span>
                 <input type="text" inputmode="decimal" class="elven-fuel-kmpl" placeholder="fx 15" aria-label="Brændstofbil (km/l)">
               </label>
               <label class="elven-calc-field">
